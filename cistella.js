@@ -1,27 +1,44 @@
-// cistella.js (Mòdul principal)
 import readlineSync from 'readline-sync';
 
-// TO-DO
-// Implementa una classe Producte, amb les propietats (que podran inicialitzar-se en el constructor):
-// - descripcio: amb la descripció del producte
-// - preu: el preu per unitat del producte
-// I el mètode (funció):
-// - toString(): que retorna un strin format per la descripció i el preu, amb el format "proucte - preu €".
+// Classe Producte
+class Producte {
+    constructor(descripcio, preu) {
+        this.descripcio = descripcio;
+        this.preu = parseFloat(preu);
+    }
 
-// TO-DO
-// Implementa una classe cistella, que contindrà com a propietat
-// - Un vector (inicialment buit), al que afegirem parells JSON {producte, quantitat}
+    // Mètode toString() que retorna la descripció i el preu formatat
+    toString() {
+        return `${this.descripcio} - ${this.preu.toFixed(2)} €`;
+    }
+}
 
-// Aquesta classe suportarà els mètodes (funcions internes a la classe)
-// - afegirProducte(producte, quantitat): Que afegirà a la llista de productes el producte indicat i la quantitat. 
-//       Ajuda: Si la llista de productes es diu productes (this.productes), farem:
-//           this.productes.push({ producte, quantitat: parseInt(quantitat) }); // L'ordre push permet afegir un element al final del vector
- 
-// - mostrarCistella(): Aquest mètode recorrerà tota la llista/vector de productes i els anirà mostrant, 
-//                      fent ús del mètode show del producte. 
-//                      A més, calcularà el subtotal per cada línia (multiplicant) el preu unitari per la quantitat,
-//                      I al final mostrarà el preu total, com a suma de tots els subtotals
+// Classe Cistella
+class Cistella {
+    constructor() {
+        this.productes = []; // Vector buit per emmagatzemar els productes
+    }
 
+    // Mètode per afegir un producte amb la seva quantitat
+    afegirProducte(producte, quantitat) {
+        this.productes.push({ producte, quantitat: parseInt(quantitat) });
+        console.log('✅ Producte afegit correctament!');
+    }
+
+    // Mètode per mostrar el contingut de la cistella
+    mostrarCistella() {
+        console.log('--- Contingut de la Cistella ---');
+        let total = 0;
+
+        this.productes.forEach((item, index) => {
+            const subtotal = item.producte.preu * item.quantitat;
+            console.log(`${index + 1}. ${item.producte.toString()} x ${item.quantitat} unitats - Subtotal: ${subtotal.toFixed(2)} €`);
+            total += subtotal;
+        });
+
+        console.log(`\nPreu Total: ${total.toFixed(2)} €`);
+    }
+}
 
 // Funció per mostrar ajuda
 function mostraAjuda() {
@@ -32,7 +49,7 @@ function mostraAjuda() {
     console.log('\tshow: Mostra el contingut de la cistella');
 }
 
-// Funció per afegir un producte
+// Funció per afegir un producte a la cistella
 function afegirProducte(cistella) {
     const nom = readlineSync.question('Nom del producte: ');
     const preu = readlineSync.question('Preu del producte: ');
@@ -47,19 +64,17 @@ function afegirProducte(cistella) {
         return;
     }
 
-    // TO-DO: Crea un nou producte anb les dades que s'han introduit, 
-    // i afig-lo a la cistella.
+    // Crear un nou objecte de la classe Producte
+    const producte = new Producte(nom, preu);
 
-    console.log("Funcionalitat per implementar!!");
-
-    
+    // Afegir el producte a la cistella
+    cistella.afegirProducte(producte, quantitat);
 }
 
 // Funció principal
 function iniciarAplicacio() {
-    
-    // TO-DO:
-    // Crea un objecte de tipus cistella
+    // Crear un objecte de la classe Cistella
+    const cistella = new Cistella();
 
     let ordre;
 
@@ -70,12 +85,10 @@ function iniciarAplicacio() {
 
         switch (ordre) {
             case 'add':
-                console.log("Funció per implementar");
-                // afegirProducte(cistella); // TO-DO: Descomentar quan es tinga implementat
+                afegirProducte(cistella);
                 break;
             case 'show':
-                console.log("Funció per implementar");
-                // cistella.mostrarCistella(); // TO-DO: Descomentar quan es tinga implementat
+                cistella.mostrarCistella();
                 break;
             case 'help':
                 mostraAjuda();
