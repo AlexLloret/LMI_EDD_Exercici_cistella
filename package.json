@@ -1,0 +1,16 @@
+{
+  "name": "cistella",
+  "version": "1.0.0",
+  "description": "Una aplicacio de consola per a cistelles de nadal",
+  "main": "cistella.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodejs cistella.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
