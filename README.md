@@ -166,3 +166,4 @@ Preu Total: 25.00 €
 Bon Nadal!
 ```
 
+TERMINADO
